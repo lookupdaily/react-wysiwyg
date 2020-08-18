@@ -1,7 +1,8 @@
 # WYSIWYG editor
 
-This is a React App exercise to build a WYSIWYG editor:
+This is a React learning exercise to build a WYSIWYG editor:
 
+**Aims:**
 - Enable Rich Text Format user input
 - Display it to the user
 

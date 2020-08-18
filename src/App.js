@@ -22,24 +22,49 @@ const App = () => {
     }
   },[])
   return (
-    <Slate editor={editor} value={value} onChange={newValue => setValue(newValue)}>
-      <Editable 
-      renderElement={renderElement}
-      onKeyDown={event => {
-        if(event.key === '`' && event.ctrlKey) {
-          event.preventDefault()
-          const [match] = Editor.nodes(editor, {
-            match: n => n.type === 'code'
-          })
-          Transforms.setNodes(
-            editor,
-            { type: match ? 'paragraph' : 'code' },
-            { match: n => Editor.isBlock(editor,n)}
-          )
-        }
-      }}
-      />
-    </Slate>
+    <div>
+      <h1>Text Editor</h1>
+      <div className="container editor">
+        <Slate editor={editor} value={value} onChange={newValue => setValue(newValue)}>
+          <Editable 
+          renderElement={renderElement}
+          onKeyDown={event => {
+            if(!event.ctrlKey) {
+              return
+            }
+            switch (event.key) {
+              case '`': {
+                event.preventDefault()
+                const [match] = Editor.nodes(editor, {
+                  match: n => n.type === 'code'
+                })
+                Transforms.setNodes(
+                  editor,
+                  { type: match ? 'paragraph' : 'code' },
+                  { match: n => Editor.isBlock(editor,n)}
+                )
+                break
+              }
+
+              case 'b': {
+                event.preventDefault()
+                Transforms.setNodes(
+                  editor,
+                  { bold: true },
+                  { match: n => Text.isText(n), split: true }
+                )
+                break
+              }
+            }
+          }}
+          />
+        </Slate>
+      </div>
+      <div className="container info">
+        <h4>Shortcuts:</h4>
+        <p><b>Ctrl + `</b> switch to code </p>
+      </div>
+    </div>
   );
 };
 

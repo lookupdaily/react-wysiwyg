@@ -1,3 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=Merriweather:wght@300&display=swap');
+
 .App {
+  padding-top: 2rem;
+}
+
+.container {
+  margin: 3rem;
+  padding: 1rem;
+}
+
+.editor {
+  background-color: honeydew;
+  min-width: 800px;
+  min-height: 250px;
+}
+
+.info {
+  background-color: lightgrey;
+}
+
+h1, h4 {
+  font-family: 'Lora', serif;
+}
+
+h1 {
+  margin-top: 2rem;
   text-align: center;
 }

@@ -1,8 +1,9 @@
 import React, { useMemo, useState, useCallback } from 'react';
-import { createEditor, Editor, Transforms } from 'slate';
+import { createEditor, Editor, Transforms, Text } from 'slate';
 import { Slate, Editable, withReact } from 'slate-react';
 import './App.css';
 import { CodeElement, DefaultElement } from './components/Elements';
+import { Leaf } from './components/Leaf'
 
 const App = () => {
   const editor = useMemo(() => withReact(createEditor()), []);
@@ -21,6 +22,11 @@ const App = () => {
         return <DefaultElement {...props} />
     }
   },[])
+
+  const renderLeaf = useCallback(props => {
+    return <Leaf {...props} />
+  }, [])
+
   return (
     <div>
       <h1>Text Editor</h1>
@@ -28,6 +34,7 @@ const App = () => {
         <Slate editor={editor} value={value} onChange={newValue => setValue(newValue)}>
           <Editable 
           renderElement={renderElement}
+          renderLeaf={renderLeaf}
           onKeyDown={event => {
             if(!event.ctrlKey) {
               return
@@ -54,6 +61,10 @@ const App = () => {
                   { match: n => Text.isText(n), split: true }
                 )
                 break
+              }
+
+              default: {
+                return
               }
             }
           }}
